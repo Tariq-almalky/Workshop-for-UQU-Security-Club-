@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Network Security Fundamentals — UQU Workshop</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f1a;--panel:#121a29;--panel2:#182236;--ink:#eef1f8;--dim:#8b96ad;--accent:#38d9c9;--accent2:#f2a65a;--violet:#a78bfa;--line:#243044;--font:'Inter',system-ui,sans-serif;--disp:'Sora',var(--font);--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);height:100vh;overflow:hidden}
+.stage{position:relative;height:100vh;display:flex;flex-direction:column}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:18px 26px;border-bottom:1px solid var(--line);flex:none}
+.brand{font-family:var(--mono);font-size:12.5px;color:var(--accent);letter-spacing:.03em}
+.brand b{color:var(--ink)}
+.counter{font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+.track-wrap{flex:1;position:relative;overflow:hidden}
+.track{display:flex;height:100%;transition:transform .45s cubic-bezier(.22,.8,.3,1)}
+.slide{min-width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:40px 8vw;overflow-y:auto}
+.eyebrow{font-family:var(--mono);font-size:12px;color:var(--accent2);margin-bottom:14px}
+h2{font-family:var(--disp);font-size:clamp(26px,4vw,44px);margin:0 0 20px;letter-spacing:-.01em;line-height:1.12}
+p.lead{color:var(--dim);font-size:17px;max-width:70ch;line-height:1.6;margin:0 0 14px}
+ul.pts{margin:0;padding:0;list-style:none;display:grid;gap:12px;max-width:78ch}
+ul.pts li{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;font-size:15px;color:var(--ink);line-height:1.55}
+ul.pts li b{color:var(--accent)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:78ch}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:6px;background:rgba(56,217,201,.12);color:var(--accent);margin-bottom:14px}
+.title-slide{align-items:flex-start}
+.title-slide h2{font-size:clamp(34px,6vw,58px)}
+.credit{font-family:var(--mono);font-size:13px;color:var(--dim);margin-top:26px;border-top:1px solid var(--line);padding-top:16px}
+.credit b{color:var(--accent)}
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:82ch}
+@media(max-width:760px){.qa-grid{grid-template-columns:1fr}}
+.qcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.qcard .who{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.ava{width:26px;height:26px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:12px;color:var(--bg)}
+.who span{font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+.qcard p{margin:0;font-size:14.5px;color:var(--ink);line-height:1.5}
+.nav{flex:none;display:flex;align-items:center;justify-content:space-between;padding:16px 26px;border-top:1px solid var(--line)}
+.navbtn{background:var(--panel);border:1px solid var(--line);color:var(--ink);width:42px;height:42px;border-radius:10px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+.navbtn:hover{border-color:var(--accent);color:var(--accent)}
+.navbtn:disabled{opacity:.3;cursor:default}
+.dots{display:flex;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .2s,transform .2s}
+.dot.on{background:var(--accent);transform:scale(1.3)}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="bar">
+    <div class="brand"><b>UQU</b> · Cybersecurity Club Workshop</div>
+    <div class="counter"><span id="cur">1</span> / 15</div>
+  </div>
+  <div class="track-wrap">
+    <div class="track" id="track">
+
+      <div class="slide title-slide">
+        <div class="tag">WORKSHOP</div>
+        <h2>Network Security<br>Fundamentals</h2>
+        <p class="lead">An introductory session on how modern networks are attacked, defended, and monitored — built for Computer Engineering &amp; Networking students.</p>
+        <div class="credit">Organized by the <b>Umm Al-Qura University (UQU)</b> Cybersecurity Club &nbsp;·&nbsp; Workshop Lead: <b>Tariq Hussain Almalki</b></div>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">Session Map</div>
+        <h2>Today's Agenda</h2>
+        <ul class="pts">
+          <li><b>01–02</b> Why network security matters, and what we're defending against</li>
+          <li><b>03–05</b> The CIA triad and common threat categories</li>
+          <li><b>06–09</b> Core defenses: firewalls, VPNs, IDS/IPS, PKI &amp; TLS</li>
+          <li><b>10–13</b> Access control, segmentation, and real attack patterns</li>
+          <li><b>14–15</b> Takeaways and open floor for attendee input</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">01 · Foundations</div>
+        <h2>What Is Network Security?</h2>
+        <p class="lead">Network security is the set of practices, protocols, and tools used to protect the confidentiality, integrity, and availability of data as it moves across — or sits within — a network.</p>
+        <p class="lead">It's not one product. It's a layered discipline: no single tool stops every threat, which is why real defenses stack multiple controls at different points in the network.</p>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">02 · The Core Model</div>
+        <h2>The CIA Triad</h2>
+        <div class="grid2">
+          <ul class="pts">
+            <li><b>Confidentiality</b> — only authorized parties can read the data (encryption, access control)</li>
+            <li><b>Integrity</b> — data isn't altered in transit or storage without detection (hashing, checksums)</li>
+          </ul>
+          <ul class="pts">
+            <li><b>Availability</b> — systems and data stay accessible when needed (redundancy, DDoS defense)</li>
+            <li>Almost every security control maps back to protecting one of these three properties</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">03 · Threat Landscape</div>
+        <h2>Common Threat Types</h2>
+        <ul class="pts">
+          <li><b>Malware</b> — viruses, worms, ransomware, and trojans that compromise a host</li>
+          <li><b>Phishing</b> — social engineering that tricks a user into revealing credentials or running malicious code</li>
+          <li><b>Denial of Service (DoS/DDoS)</b> — flooding a target with traffic to exhaust its resources</li>
+          <li><b>Man-in-the-Middle (MITM)</b> — intercepting or altering traffic between two parties who believe they're talking directly</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">04 · Perimeter Defense</div>
+        <h2>How Firewalls Work</h2>
+        <p class="lead">A firewall inspects traffic against a rule set and decides whether to allow, block, or log it. Packet-filtering firewalls check headers (IP, port, protocol); stateful firewalls track the status of active connections; next-gen firewalls add deep packet inspection and application awareness.</p>
+        <p class="lead">Rule of thumb taught in most SOC training: default-deny, then explicitly allow only what's needed.</p>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">05 · Secure Tunnels</div>
+        <h2>VPNs &amp; Encryption Basics</h2>
+        <ul class="pts">
+          <li>A <b>VPN</b> creates an encrypted tunnel between two endpoints over an untrusted network like the public internet</li>
+          <li><b>Symmetric encryption</b> (e.g. AES) uses one shared key — fast, used for the bulk data itself</li>
+          <li><b>Asymmetric encryption</b> (e.g. RSA) uses a public/private key pair — slower, used mainly to exchange the symmetric key securely</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">06 · Monitoring</div>
+        <h2>IDS vs IPS</h2>
+        <div class="grid2">
+          <ul class="pts">
+            <li><b>IDS (Intrusion Detection System)</b> — passively monitors traffic and alerts on suspicious patterns; it doesn't block anything itself</li>
+          </ul>
+          <ul class="pts">
+            <li><b>IPS (Intrusion Prevention System)</b> — sits inline and actively blocks traffic that matches known attack signatures or anomalous behavior</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">07 · Access Control</div>
+        <h2>Authentication vs Authorization</h2>
+        <ul class="pts">
+          <li><b>Authentication</b> answers "who are you?" — passwords, biometrics, MFA tokens</li>
+          <li><b>Authorization</b> answers "what are you allowed to do?" — permissions, roles, access levels</li>
+          <li>A common mistake: strong authentication with weak, overly broad authorization behind it</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">08 · Trust on the Web</div>
+        <h2>PKI &amp; TLS/SSL</h2>
+        <p class="lead">Public Key Infrastructure (PKI) is the system of certificates and Certificate Authorities (CAs) that lets your browser trust that a server is who it claims to be.</p>
+        <p class="lead">TLS uses this trust to negotiate a secure session: the server presents a certificate, the browser verifies it against a trusted CA, and both sides derive a shared symmetric key for the encrypted session that follows — this is the padlock icon in your browser.</p>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">09 · Architecture</div>
+        <h2>Segmentation &amp; Zero Trust</h2>
+        <ul class="pts">
+          <li><b>Network segmentation</b> splits a network into isolated zones so a breach in one zone doesn't automatically expose the rest</li>
+          <li><b>Zero Trust</b> assumes no device or user is trusted by default, even inside the perimeter — every request is verified continuously</li>
+          <li>Together they replace the old "hard shell, soft center" model of network defense</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">10 · Case Example</div>
+        <h2>Anatomy of a DDoS Attack</h2>
+        <p class="lead">An attacker controls a botnet of compromised devices and directs them to simultaneously flood a target — a web server, for example — with requests, exhausting its bandwidth, connections, or processing capacity.</p>
+        <p class="lead">Defenses include traffic scrubbing services, rate limiting, anycast distribution, and upstream ISP-level filtering before traffic ever reaches the target.</p>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">11 · Practical Checklist</div>
+        <h2>Baseline Best Practices</h2>
+        <ul class="pts">
+          <li>Patch systems promptly — most breaches exploit known, unpatched vulnerabilities</li>
+          <li>Enforce MFA everywhere credentials are used</li>
+          <li>Segment networks and apply least-privilege access</li>
+          <li>Log and actively monitor traffic, not just collect logs passively</li>
+          <li>Encrypt data both in transit and at rest</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">12 · Wrap-Up</div>
+        <h2>Key Takeaways</h2>
+        <ul class="pts">
+          <li>Security is layered — no single control is sufficient on its own</li>
+          <li>Most real-world breaches exploit people or process gaps, not just technical flaws</li>
+          <li>The CIA triad is the mental model behind almost every control discussed today</li>
+        </ul>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">13 · Closing</div>
+        <h2>Thank You</h2>
+        <p class="lead">This concludes the technical portion of the workshop. Slides and reference notes will be shared with all attendees after the session.</p>
+        <div class="credit">Umm Al-Qura University (UQU) Cybersecurity Club &nbsp;·&nbsp; Workshop Lead: <b>Tariq Hussain Almalki</b></div>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">14 · Open Floor</div>
+        <h2>Before We Close...</h2>
+        <p class="lead">Any final questions on firewalls, TLS, or segmentation before we move to attendee contributions on the next slide?</p>
+      </div>
+
+      <div class="slide">
+        <div class="eyebrow">15 · Community</div>
+        <h2>Attendee Contributions</h2>
+        <div class="qa-grid" id="qaGrid"></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="nav">
+    <button class="navbtn" id="prevBtn">‹</button>
+    <div class="dots" id="dots"></div>
+    <button class="navbtn" id="nextBtn">›</button>
+  </div>
+</div>
+<script>
+const ATTENDEES=[
+ {n:"Reema Al-Zahrani",c:"e05a5a",q:"How is Zero Trust actually different from just having a good firewall at the edge?"},
+ {n:"Faisal Otieno",c:"38d9c9",q:"Great session — the CIA triad framing finally made the rest of the slides click for me."},
+ {n:"Layla Bergström",c:"a78bfa",q:"Do you recommend a specific IDS tool for students to practice with at home?"},
+ {n:"Daniyar Suleimenov",c:"f2a65a",q:"Would love a follow-up workshop specifically on TLS handshake internals."},
+ {n:"Aisha Nakamura",c:"6fd67e",q:"Is segmentation still worth doing on a small home lab, or is it overkill?"}
+];
+const qaGrid=document.getElementById("qaGrid");
+qaGrid.innerHTML=ATTENDEES.map(a=>`<div class="qcard"><div class="who"><div class="ava" style="background:#${a.c}">${a.n[0]}</div><span>${a.n}</span></div><p>${a.q}</p></div>`).join("");
+
+const track=document.getElementById("track");
+const slides=track.children.length;
+const dotsEl=document.getElementById("dots");
+dotsEl.innerHTML=Array.from({length:slides}).map((_,i)=>`<div class="dot${i===0?' on':''}" data-i="${i}"></div>`).join("");
+let idx=0;
+const curEl=document.getElementById("cur"),prevBtn=document.getElementById("prevBtn"),nextBtn=document.getElementById("nextBtn");
+function go(i){
+  idx=Math.max(0,Math.min(slides-1,i));
+  track.style.transform=`translateX(-${idx*100}%)`;
+  curEl.textContent=idx+1;
+  prevBtn.disabled=idx===0;
+  nextBtn.disabled=idx===slides-1;
+  dotsEl.querySelectorAll(".dot").forEach((d,j)=>d.classList.toggle("on",j===idx));
+}
+prevBtn.addEventListener("click",()=>go(idx-1));
+nextBtn.addEventListener("click",()=>go(idx+1));
+dotsEl.addEventListener("click",e=>{if(e.target.classList.contains("dot"))go(Number(e.target.dataset.i));});
+document.addEventListener("keydown",e=>{
+  if(e.key==="ArrowRight")go(idx+1);
+  if(e.key==="ArrowLeft")go(idx-1);
+});
+go(0);
+</script>
+</body>
+</html>
